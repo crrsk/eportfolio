@@ -1,10 +1,10 @@
 <?php
 
+use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\FamiliasProfesionalesController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view("welcome");
-});
+Route::get('/', [WelcomeController::class, 'getHome']);
 
 // ----------------------------------------
 Route::get('login', function () {
@@ -38,7 +38,8 @@ Route::prefix('familias-profesionales')->group(function () {
 // ----------------------------------------
 Route::get('perfil/{id?}', function ($id = null) {
     if ($id === null)
-        return 'Visualizar el usuario propio';
-    return 'Visualizar el usuario de ' . $id;
+        return 'Visualizar el currículo propio';
+    return 'Visualizar el currículo de ' . $id;
 }) -> where('id', '[0-9]+');
+
 
