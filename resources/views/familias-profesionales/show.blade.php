@@ -1,7 +1,34 @@
 @extends('landed.master')
-
-
-
     @section('content')
-        <h2>Familias Profesionales {{$id}}</h2>
+    <div class="row m-4">
+
+        <div class="col-sm-4">
+
+            <img src='/landed/images/logo.png' style="height:200px"/>
+
+        </div>
+        <div class="col-sm-8">
+
+            <h3><strong>Nombre: </strong>{{ $familias_profesionales['nombre'] }}</h3>
+            <h4><strong>Dominio: </strong>
+                <a href="http://github.com/2DAW-CarlosIII/{{ $familias_profesionales['codigo'] }}">
+                    http://github.com/2DAW-CarlosIII/{{ $familias_profesionales['codigo'] }}
+                </a>
+            </h4>
+            <h4><strong>Codigo: </strong>{{ $familias_profesionales['codigo'] }}</h4>
+            <p><strong>Nombre: </strong>{{ $familias_profesionales['nombre'] }}</p>
+
+
+
+            <a class="btn btn-warning" href="{{ action([App\Http\Controllers\FamiliasProfesionalesController::class, 'getEdit'], ['id' => $id]) }}">
+                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                Editar calificacion del alumno.
+            </a>
+            <a class="btn btn-outline-info" href="{{ action([App\Http\Controllers\FamiliasProfesionalesController::class, 'getIndex']) }}">
+                Volver al listado
+            </a>
+
+
+        </div>
+    </div>
     @endsection
