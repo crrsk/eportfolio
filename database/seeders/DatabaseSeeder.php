@@ -21,13 +21,14 @@ class DatabaseSeeder extends Seeder
         Model::unguard();
         Schema::disableForeignKeyConstraints();
 
+        /*User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+        ]);*/
         Model::unguard();
         Schema::disableForeignKeyConstraints();
 
-        // llamadas a otros ficheros de seed
-        $this->call(ResultadosAprendizajeTableSeeder::class);
-
-        // llamadas a otros ficheros de seed
+        $this->call(CriteriosEvaluacionTableSeeder::class);
 
         Model::reguard();
 
