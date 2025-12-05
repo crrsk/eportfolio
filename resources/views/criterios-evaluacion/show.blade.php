@@ -9,16 +9,16 @@
         </div>
         <div class="col-sm-8">
 
-            <h3><strong>Criterio de Evaluacion ID: </strong>{{ $criterioEvaluacion->resultado_aprendizaje_id}}</h3>
+            <h3><strong>Criterio de Evaluacion ID: </strong>{{ $criterios_evaluacion->resultado_aprendizaje_id}}</h3>
             <h4><strong>Codigo: </strong>
                 <a href="http://github.com/2DAW-CarlosIII/{{ $criterioEvaluacion->codigo}}">
-                    http://github.com/2DAW-CarlosIII/{{ $criterioEvaluacion->codigo }}
+                    http://github.com/2DAW-CarlosIII/{{ $criterios_evaluacion->codigo }}
                 </a>
             </h4>
-            <h4><strong>Codigo: </strong>{{ $criterioEvaluacion->codigo}}</h4>
-            <p><strong>Descripcion: </strong>{{ $criterioEvaluacion->descripcion }}</p>
-            <p><strong>Peso Porcentaje: </strong>{{ $criterioEvaluacion->peso_porcentaje }}</p>
-            <p><strong>Orden: </strong>{{ $criterioEvaluacion->orden }}</p>
+            <h4><strong>Codigo: </strong>{{ $criterios_evaluacion->codigo}}</h4>
+            <p><strong>Descripcion: </strong>{{ $criterios_evaluacion->descripcion }}</p>
+            <p><strong>Peso Porcentaje: </strong>{{ $criterios_evaluacion->peso_porcentaje }}</p>
+            <p><strong>Orden: </strong>{{ $criterios_evaluacion->orden }}</p>
 
             <a class="btn btn-warning" href="{{ action([App\Http\Controllers\CriteriosEvaluacionController::class, 'getEdit'], ['id' => $id]) }}">
                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
