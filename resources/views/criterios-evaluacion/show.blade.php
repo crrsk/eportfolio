@@ -11,7 +11,7 @@
 
             <h3><strong>Criterio de Evaluacion ID: </strong>{{ $criterios_evaluacion->resultado_aprendizaje_id}}</h3>
             <h4><strong>Codigo: </strong>
-                <a href="http://github.com/2DAW-CarlosIII/{{ $criterioEvaluacion->codigo}}">
+                <a href="http://github.com/2DAW-CarlosIII/{{ $criterios_evaluacion->codigo}}">
                     http://github.com/2DAW-CarlosIII/{{ $criterios_evaluacion->codigo }}
                 </a>
             </h4>
