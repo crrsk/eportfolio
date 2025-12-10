@@ -32,4 +32,21 @@ class FamiliasProfesionalesController extends Controller
         return view('familias-profesionales.edit')
             ->with('familia_profesional', $familia_profesional);
     }
+
+    public function postCreate(Request $request)
+    {
+        $familiaProfesional = FamiliaProfesional::create($request->all());
+        return redirect()->action([self::class, 'getShow'], ['id' => $familiaProfesional->id]);
+    }
+
+
+
+    public function putCreate(Request $request, $id)
+    {
+        $familiaProfesional = FamiliaProfesional::findOrFail($id);
+
+        $familiaProfesional->update($request->all());
+        return redirect()->action([self::class, 'getShow'], ['id' => $familiaProfesional->id]);
+    }
+
 }

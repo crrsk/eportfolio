@@ -22,7 +22,7 @@
 
             <a class="btn btn-warning" href="{{ action([App\Http\Controllers\FamiliasProfesionalesController::class, 'getEdit'], ['id' => $familia_profesional->id]) }}">
                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                Editar calificacion del alumno.
+                Editar familia profesional.
             </a>
             <a class="btn btn-outline-info" href="{{ action([App\Http\Controllers\FamiliasProfesionalesController::class, 'getIndex']) }}">
                 Volver al listado
