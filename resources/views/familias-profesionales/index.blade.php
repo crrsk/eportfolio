@@ -12,6 +12,7 @@
                             <img width="300" style="height:300px" alt="Curriculum-vitae-warning-icon"
                                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Curriculum-vitae-warning-icon.svg/256px-Curriculum-vitae-warning-icon.svg.png">
                         @endif
+
                     </a>
                     <header>
                         <h3>{{ $familiaProfesional->nombre }}</h3>
