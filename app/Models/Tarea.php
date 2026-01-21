@@ -9,9 +9,7 @@ class Tarea extends Model
 {
     use HasFactory;
 
-
     protected $table = 'tareas';
-
 
     protected $fillable = [
         'criterio_evaluacion_id',
@@ -21,9 +19,14 @@ class Tarea extends Model
         'enunciado'
     ];
 
-
     public function criterioEvaluacion()
     {
         return $this->belongsTo(CriterioEvaluacion::class);
+    }
+
+
+    public function evidencias()
+    {
+        return $this->hasMany(Evidencia::class);
     }
 }

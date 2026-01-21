@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\EvaluacionesEvidenciasResource;
 use App\Models\EvaluacionesEvidencia;
+use App\Models\Evidencia;
 use Illuminate\Http\Request;
 
 class EvaluacionesEvidenciasController extends Controller
@@ -30,8 +31,9 @@ class EvaluacionesEvidenciasController extends Controller
         return new EvaluacionesEvidenciasResource($evaluacionEvidencia);
     }
 
-    public function show(EvaluacionesEvidencia $evaluacionEvidencia)
+    public function show(Evidencia $evidencia, EvaluacionesEvidencia $evaluacionEvidencia)
     {
+        
         return new EvaluacionesEvidenciasResource($evaluacionEvidencia);
     }
 

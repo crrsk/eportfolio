@@ -6,34 +6,38 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\EvidenciaResource;
 use App\Models\Evidencia;
 use App\Models\Evidencias;
+use App\Models\Tarea;
 use Illuminate\Http\Request;
 
 class EvidenciasController extends Controller
 {
-    public function index(Request $request)
+    public function index(Tarea $tarea, Request $request)
     {
         return EvidenciaResource::collection(
-            Evidencia::orderBy($request->_sort ?? 'id', $request->_order ?? 'asc')
-            ->paginate($request->perPage));
+            $tarea->evidencias()
+            ->orderBy($request->_sort ?? 'id', $request->_order ?? 'asc')
+            ->paginate($request->perPage)
+        );
     }
 
-    public function store(Request $request)
+    public function store(Request $request, Tarea $tarea)
     {
-        $evidencia = json_decode($request->getContent(), true);
+        $data = $request->all();
+        $data['tarea_id'] = $tarea->id;
 
-        $evidencia = Evidencia::create($evidencia);
+        $evidencia = Evidencia::create($data);
 
         return new EvidenciaResource($evidencia);
     }
-    public function show(Evidencia $evidencia)
+    public function show(Tarea $tarea, Evidencia $evidencia)
     {
         return new EvidenciaResource($evidencia);
     }
 
-    public function update(Request $request, $tarea_id, Evidencia $evidencia)
+    public function update(Request $request, Tarea $tarea, Evidencia $evidencia)
 {
-    $data = $request->all();
-    $evidencia->update($data);
+    $evidenciaData = json_decode($request->getContent(), true);
+    $evidencia->update($evidenciaData);
 
     return new EvidenciaResource($evidencia);
 }
@@ -41,7 +45,7 @@ class EvidenciasController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Evidencia $evidencia)
+    public function destroy(Tarea $tarea, Evidencia $evidencia)
     {
         try {
             $evidencia->delete();

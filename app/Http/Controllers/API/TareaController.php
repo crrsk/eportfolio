@@ -4,18 +4,17 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\TareaResource;
+use App\Models\CriterioEvaluacion;
 use App\Models\Tarea;
 use Illuminate\Http\Request;
 
 class TareaController extends Controller
 {
 
-    public function index(Request $request)
+    public function index(Request $request, $criterioId)
     {
-        return TareaResource::collection(
-            Tarea::orderBy($request->_sort ?? 'id', $request->_order ?? 'asc')
-                ->paginate($request->perPage)
-        );
+        return Tarea::where('criterio_evaluacion_id', $criterioId)
+            ->paginate($request->get('perPage', 15));
     }
 
     public function store(Request $request)
@@ -27,12 +26,12 @@ class TareaController extends Controller
         return new TareaResource($tarea);
     }
 
-    public function show(Tarea $tarea)
+    public function show(CriterioEvaluacion $criterioEvaluacion, Tarea $tarea)
     {
         return new TareaResource($tarea);
     }
 
-    public function update(Request $request, Tarea $tarea)
+    public function update(Request $request, CriterioEvaluacion $criterioEvaluacion, Tarea $tarea)
     {
         $tareaData = json_decode($request->getContent(), true);
         $tarea->update($tareaData);
@@ -40,8 +39,9 @@ class TareaController extends Controller
         return new TareaResource($tarea);
     }
 
-    public function destroy(Tarea $tarea)
+    public function destroy($id)
     {
+        $tarea = Tarea::findOrFail($id);
         try {
             $tarea->delete();
             return response()->json(null, 204);
