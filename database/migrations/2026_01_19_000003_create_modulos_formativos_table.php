@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('curso_escolar');
             $table->string('centro');
             $table->unsignedBigInteger('docente_id');
+            $table->foreign('docente_id')->references('id')->on('users')->onDelete('cascade');
             $table->text('descripcion')->nullable();
         });
     }
