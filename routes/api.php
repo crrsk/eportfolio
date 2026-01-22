@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\AsignacionRevisionController;
 use App\Http\Controllers\API\CicloController;
 use App\Http\Controllers\API\ComentarioController;
+use App\Http\Controllers\API\CriterioEvaluacionController;
 use App\Http\Controllers\API\CriterioTareaController;
 use App\Http\Controllers\API\FamiliaProfesionalController;
 use App\Http\Controllers\API\ModuloFormativoController;
@@ -15,7 +16,10 @@ use App\Http\Controllers\API\EvidenciasController;
 use App\Http\Controllers\API\TareaController;
 use App\Http\Controllers\API\EvaluacionController;
 use App\Http\Controllers\API\EvaluacionesEvidenciasController;
+use App\Http\Controllers\API\MatriculaController;
+use App\Http\Controllers\API\ResultadoAprendizajeController;
 use App\Http\Controllers\CriteriosEvaluacionController;
+
 
 Route::middleware(['auth:sanctum'])->get('/user',function (Request $request) {
     return $request->user();
@@ -80,6 +84,24 @@ Route::prefix('v1')->group(function () {
         'evaluaciones-evidencias' => 'evaluacionEvidencia'
     ]);
 
+
+
+    Route::apiResource('matriculas', MatriculaController::class);
+
+    Route::apiResource('modulos-formativos.resultados-aprendizaje',ResultadoAprendizajeController::class)
+        ->parameters(['modulos-formativos' => 'parent_id', 'resultados-aprendizaje' => 'id'
+    ]);
+
+    Route::apiResource('resultados-aprendizaje.criterios-evaluacion', CriterioEvaluacionController::class)
+        ->parameters([
+         'resultados-aprendizaje' => 'parent_id',
+         'criterios-evaluacion' => 'id'
+    ]);
+
+    Route::apiResource('modulos-formativos.matriculas', MatriculaController::class)
+        ->parameters(['modulos-formativos' => 'parent_id', 'matriculas' => 'id'
+    ]);
+
 });
 
 
@@ -107,6 +129,11 @@ Route::any('/{any}', function (ServerRequestInterface $request) {
     return $response;
 
 })->where('any', '.*');
+
+
+
+
+
 
 
 
