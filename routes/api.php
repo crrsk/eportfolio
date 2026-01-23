@@ -34,7 +34,7 @@ Route::prefix('v1')->group(function () {
 
     Route::apiResource('familias-profesionales', FamiliaProfesionalController::class)
         ->parameters([
-            'familias-profesionales' => 'id'
+            'familias-profesionales' => 'familiaProfesional'
         ]);
 
     Route::apiResource('familias-profesionales.ciclos-formativos', CicloController::class)

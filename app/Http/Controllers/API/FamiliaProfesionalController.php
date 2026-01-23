@@ -16,17 +16,10 @@ class FamiliaProfesionalController extends Controller
      */
     public function index(Request $request)
     {
-        $query = CicloFormativo::query();
+        $query = FamiliaProfesional::query();
         if($query) {
             $query->orWhere('nombre', 'like', '%' .$request->q . '%');
         }
-
-        return CicloResource::collection(
-            $query->orderBy($request->_sort ?? 'id', $request->_order ?? 'asc')
-            ->paginate($request->perPage)
-        );
-
-
 
         return FamiliaProfesionalResource::collection(
             FamiliaProfesional::orderBy($request->sort ?? 'id', $request->order ?? 'asc')
