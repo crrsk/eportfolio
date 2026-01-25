@@ -27,11 +27,11 @@ class ResultadoAprendizajeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request,$parent_id)
+    public function store(Request $request, ModuloFormativo $parent_id)
     {
         $resultado = $request->all();
 
-        $resultado['modulo_formativo_id'] = $parent_id;
+        $resultado['modulo_formativo_id'] = $parent_id->id;
         $resultadoAprendizaje = ResultadoAprendizaje::create($resultado);
 
         return new ResultadoAprendizajeResource($resultadoAprendizaje);
@@ -40,16 +40,15 @@ class ResultadoAprendizajeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($parent_id, ResultadoAprendizaje $id)
+    public function show(ModuloFormativo $parent_id, ResultadoAprendizaje $id)
     {
-        abort_if($id->modulo_formativo_id != $parent_id, 404, 'Resultado de aprendizaje no encontrado en el módulo formativo especificado.');
         return new ResultadoAprendizajeResource($id);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,$parent_id, ResultadoAprendizaje $id)
+    public function update(Request $request, ModuloFormativo $parent_id, ResultadoAprendizaje $id)
     {
         $resultadoAprendizajeData = json_decode($request->getContent(), true);
         $id->update($resultadoAprendizajeData);
@@ -60,10 +59,9 @@ class ResultadoAprendizajeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($parent_id, ResultadoAprendizaje $id)
+    public function destroy(ModuloFormativo $parent_id, ResultadoAprendizaje $id)
     {
         try {
-            abort_if($id->modulo_formativo_id != $parent_id, 404, 'Resultado de aprendizaje no encontrado en el módulo formativo especificado.');
             $id->delete();
             return response()->json(null, 204);
         } catch (\Exception $e) {

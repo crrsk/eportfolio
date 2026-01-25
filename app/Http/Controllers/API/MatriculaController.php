@@ -15,7 +15,7 @@ class MatriculaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request,$parent_id = null)
+    public function index(Request $request)
     {
         $query = Matricula::query();
         if ($request) {
@@ -31,14 +31,11 @@ class MatriculaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, $parent_id = null)
+    public function store(Request $request, Matricula $parent_id)
     {
         $matricula = $request->all();
-        if ($parent_id) {
-            $matricula['modulo_formativo_id'] = $parent_id;
-        }
 
-        $matricula['modulo_formativo_id'] = $parent_id;
+        $matricula['modulo_formativo_id'] = $parent_id->id;
 
         $matriculas = Matricula::create($matricula);
 
@@ -48,16 +45,15 @@ class MatriculaController extends Controller
     /**
      * Display the specified resource.º
      */
-    public function show($parent_id=null, Matricula $id)
+    public function show(ModuloFormativo $parent_id, Matricula $id)
     {
-        abort_if($id->modulo_formativo_id != $parent_id, 404, 'Matrícula no encontrada en el módulo formativo especificado.');
         return new MatriculaResource($id);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $parent_id=null, Matricula $id)
+    public function update(Request $request, ModuloFormativo $parent_id, Matricula $id)
     {
         $matriculaData = json_decode($request->getContent(), true);
         $id->update($matriculaData);
@@ -68,7 +64,7 @@ class MatriculaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($parent_id=null, Matricula $id)
+    public function destroy(ModuloFormativo $parent_id, Matricula $id)
     {
         try {
             $id->delete();

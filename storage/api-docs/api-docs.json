@@ -1574,6 +1574,15 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the criteriosevaluacion",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
                     }
                 ],
                 "responses": {
@@ -2849,7 +2858,17 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                     {
+                        "name": "estudiante_id",
+                        "in": "path",
+                        "description": "ID of the Estudiante",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
                     }
+
                 ],
                 "requestBody": {
                     "required": true,
@@ -3127,6 +3146,15 @@
                         "name": "parent_id",
                         "in": "path",
                         "description": "ID of the módulo formativo",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                     {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the matricula",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -3863,6 +3891,15 @@
                         "name": "parent_id",
                         "in": "path",
                         "description": "ID of the módulo formativo",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the resultadoaprendizaje",
                         "required": true,
                         "schema": {
                             "type": "integer"
