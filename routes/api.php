@@ -21,7 +21,7 @@ use App\Http\Controllers\API\ResultadoAprendizajeController;
 use App\Http\Controllers\CriteriosEvaluacionController;
 
 
-Route::middleware(['auth:sanctum'])->get('/user',function (Request $request) {
+Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
@@ -30,84 +30,107 @@ Route::middleware(['auth:sanctum'])->get('/user',function (Request $request) {
 
 Route::prefix('v1')->group(function () {
 
-    Route::get('modulos-impartidos', [ModuloFormativoController::class, 'index'])->middleware('auth:sanctum');;
+    //Rutas API Resource AsignacionRevision
 
-    Route::apiResource('familias-profesionales', FamiliaProfesionalController::class)
+    Route::apiResource('evidencias.asignaciones-revision', AsignacionRevisionController::class)
         ->parameters([
-            'familias-profesionales' => 'familiaProfesional'
-        ]);
+            'evidencias' => 'evidencia',
+            'asignaciones-revision' => 'asignacionRevision'
+        ]
+    );
+
+    Route::get('users/{id}/asignaciones-revision', [AsignacionRevisionController::class, 'getShow']);
+
+    //Rutas API Resource CicloFormativo
 
     Route::apiResource('familias-profesionales.ciclos-formativos', CicloController::class)
         ->parameters([
             'familias-profesionales' => 'familiaProfesional',
             'ciclos-formativos' => 'ciclo'
-        ]);
+        ]
+    );
 
-    Route::apiResource('ciclos-formativos.modulos-formativos', ModuloFormativoController::class)
-        ->parameters([
-            'ciclos-formativos' => 'parent_id',
-            'modulos-formativos' => 'id'
-        ]);
+    //Rutas API Resource Comentarios
 
     Route::apiResource('evidencias.comentarios', ComentarioController::class)->parameters([
         'evidencias' => 'evidencia',
         'comentarios' => 'comentario'
-    ]);
+        ]
+    );
 
-    Route::apiResource('evidencias.asignaciones-revision', AsignacionRevisionController::class)->parameters([
-        'evidencias' => 'evidencia',
-        'asignaciones-revision' => 'asignacionRevision'
-    ]);
-
-    Route::get('users/{id}/asignaciones-revision', [AsignacionRevisionController::class,'getShow']);
-
-    Route::apiResource('criterios_tareas', CriterioTareaController::class)->parameters([
-        'criterios_tareas' => 'criterioTarea'
-    ]);
-
-
-    Route::post('tareas',[TareaController::class,'store']);
-    Route::get('criterios-evaluacion/{criterioId}/tareas',[TareaController::class,'index']);
-    Route::get('resultados-aprendizaje/{resultadoId}/tareas',[TareaController::class,'getTareasPorResultado']);
-    Route::get('criterios-evaluacion/{criterioId}/tareas/{id}',[TareaController::class,'show']);
-    Route::put('tareas/{id}',[TareaController::class,'update']);
-    Route::delete('tareas/{id}',[TareaController::class,'destroy']);
-
-    Route::apiResource('tareas.evidencias', EvidenciasController::class)
-    ->parameters([
-        'tareas' => 'tarea',
-        'evidencias' => 'evidencia'
-    ]);
-
-    Route::apiResource('criterios-evaluacion.tareas', TareaController::class)->parameters([
-        'criterios-evaluacion' => 'criterioEvaluacion',
-        'tareas' => 'tarea'
-    ]);
-
-    Route::apiResource('evidencias.evaluaciones-evidencias', EvaluacionesEvidenciasController::class)->parameters([
-        'evaluaciones-evidencias' => 'evaluacionEvidencia'
-    ]);
-
-
-
-    Route::apiResource('matriculas', MatriculaController::class);
-
-    Route::apiResource('modulos-formativos.resultados-aprendizaje',ResultadoAprendizajeController::class)
-        ->parameters([
-            'modulos-formativos' => 'moduloFormativo',
-            'resultados-aprendizaje' => 'resultadoAprendizaje'
-    ]);
+    //Rutas API Resource CriterioEvaluacion
 
     Route::apiResource('resultados-aprendizaje.criterios-evaluacion', CriterioEvaluacionController::class)
         ->parameters([
-         'resultados-aprendizaje' => 'resultadoAprendizaje',
-         'criterios-evaluacion' => 'criterioEvaluacion'
-    ]);
+            'resultados-aprendizaje' => 'resultadoAprendizaje',
+            'criterios-evaluacion' => 'criterioEvaluacion'
+        ]
+    );
 
-    Route::apiResource('modulos-formativos.matriculas', MatriculaController::class)
-        ->parameters(['modulos-formativos' => 'parent_id', 'matriculas' => 'id'
-    ]);
+    //Rutas API Resource EvaluacionEvidencia
 
+    Route::apiResource('evidencias.evaluaciones-evidencias', EvaluacionesEvidenciasController::class)->parameters([
+        'evaluaciones-evidencias' => 'evaluacionEvidencia'
+        ]
+    );
+
+    //Rutas API Resource Evidencias
+
+    Route::apiResource('tareas.evidencias', EvidenciasController::class)
+        ->parameters([
+            'tareas' => 'tarea',
+            'evidencias' => 'evidencia'
+        ]
+    );
+
+    //Rutas API Resource FamiliaProfesional
+
+    Route::apiResource('familias-profesionales', FamiliaProfesionalController::class)
+        ->parameters([
+            'familias-profesionales' => 'familiaProfesional'
+        ]
+    );
+
+    //Rutas API Resource Matriculas
+    Route::get('modulos-formativos/{moduloFormativo}/matriculas', [MatriculaController::class, 'index']);
+    Route::post('modulos-formativos/{moduloFormativo}/matriculas', [MatriculaController::class, 'store']);
+    Route::get('modulos-matriculados', [MatriculaController::class, 'getModulosMatriculados'])->middleware('auth:sanctum');
+    Route::post('matriculas', [MatriculaController::class, 'storeGeneral']);
+    Route::get('modulos-formativos/{moduloFormativo}/matriculas/{matricula}', [MatriculaController::class, 'show']);
+    Route::put('modulos-formativos/{moduloFormativo}/matriculas/{matricula}', [MatriculaController::class, 'update']);
+    Route::delete('modulos-formativos/{moduloFormativo}/matriculas/{matricula}', [MatriculaController::class, 'destroy']);
+
+    //Rutas API Resource ModuloFormativo
+
+    Route::apiResource('ciclos-formativos.modulos-formativos', ModuloFormativoController::class)
+        ->parameters([
+            'ciclos-formativos' => 'cicloFormativo',
+            'modulos-formativos' => 'moduloFormativo'
+        ]
+    );
+    Route::get('modulos-impartidos', [ModuloFormativoController::class, 'index'])->middleware('auth:sanctum');
+    //Rutas API Resource ResultadoAprendizaje
+    Route::apiResource('modulos-formativos.resultados-aprendizaje', ResultadoAprendizajeController::class)
+        ->parameters([
+            'modulos-formativos' => 'moduloFormativo',
+            'resultados-aprendizaje' => 'resultadoAprendizaje'
+        ]
+    );
+    //Rutas API Resource Tareas
+    Route::post('tareas', [TareaController::class, 'store']);
+    Route::get('criterios-evaluacion/{criterioId}/tareas', [TareaController::class, 'index']);
+    Route::get('resultados-aprendizaje/{resultadoId}/tareas', [TareaController::class, 'getTareasPorResultado']);
+    Route::get('criterios-evaluacion/{criterioId}/tareas/{id}', [TareaController::class, 'show']);
+    Route::put('tareas/{id}', [TareaController::class, 'update']);
+    Route::delete('tareas/{id}', [TareaController::class, 'destroy']);
+
+
+
+
+    Route::apiResource('criterios_tareas', CriterioTareaController::class)->parameters([
+        'criterios_tareas' => 'criterioTarea'
+        ]
+    );
 });
 
 
@@ -130,20 +153,6 @@ Route::any('/{any}', function (ServerRequestInterface $request) {
         $records = json_decode($response->getBody()->getContents())->records;
         $response = response()->json($records, 200, $headers = ['X-Total-Count' => count($records)]);
     } catch (\Throwable $th) {
-
     }
     return $response;
-
 })->where('any', '.*');
-
-
-
-
-
-
-
-
-
-
-
-
