@@ -18,6 +18,7 @@ use App\Http\Controllers\API\EvaluacionController;
 use App\Http\Controllers\API\EvaluacionesEvidenciasController;
 use App\Http\Controllers\API\MatriculaController;
 use App\Http\Controllers\API\ResultadoAprendizajeController;
+use App\Http\Controllers\API\RolController;
 use App\Http\Controllers\CriteriosEvaluacionController;
 
 
@@ -116,6 +117,9 @@ Route::prefix('v1')->group(function () {
             'resultados-aprendizaje' => 'resultadoAprendizaje'
         ]
     );
+
+    //Rutas API Resource Roles
+    Route::apiResource('roles', RolController::class);
     //Rutas API Resource Tareas
     Route::post('tareas', [TareaController::class, 'store']);
     Route::get('criterios-evaluacion/{criterioId}/tareas', [TareaController::class, 'index']);

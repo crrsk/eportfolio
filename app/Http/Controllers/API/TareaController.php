@@ -15,7 +15,7 @@ class TareaController extends Controller
     public function index(Request $request,CriterioEvaluacion $criterioId)
     {
         return TareaResource::collection(
-            Tarea::where('criterios_evaluacion_id', $criterioId->id)
+            Tarea::where('criterio_evaluacion_id', $criterioId->id)
             ->orderBy($request->_sort ?? 'id', $request->_order ?? 'asc')
             ->paginate($request->get('perPage', 15))
         );
@@ -62,7 +62,7 @@ class TareaController extends Controller
         $criterio = CriterioEvaluacion::where('resultado_aprendizaje_id', $resultadoId->id)->pluck('id');
 
         return TareaResource::collection(
-            Tarea::whereIn('criterios_evaluacion_id', $criterio)
+            Tarea::whereIn('criterio_evaluacion_id', $criterio)
             ->orderBy($request->_sort ?? 'id', $request->_order ?? 'asc')
             ->paginate($request->get('perPage', 15))
         );

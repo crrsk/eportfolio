@@ -36,8 +36,8 @@ class DatabaseSeeder extends Seeder
         $this->call(MatriculasTableSeeder::class);
         $this->call(ResultadosAprendizajeTableSeeder::class);
         $this->call(ModulosFormativosTableSeeder::class);
-
-         $this->call(TareasTableSeeder::class);
+        $this->call(RolesTableSeeder::class);
+        $this->call(TareasTableSeeder::class);
         $this->call(EvaluacionesEvidenciasTableSeeder::class);
 
         Model::reguard();

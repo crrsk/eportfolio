@@ -16,19 +16,19 @@ class TareasTableSeeder extends Seeder
     {
 
         Tarea::create([
-            'criterios_evaluacion_id' => 1,
+            'criterio_evaluacion_id' => 1,
             'fecha_apertura' => now(),
             'fecha_cierre' => now()->addDays(7),
             'activo' => true,
-            'observaciones' => 'Tarea de prueba 1',
+            'enunciado' => 'Tarea de prueba 1',
         ]);
 
         Tarea::create([
-            'criterios_evaluacion_id' => 1,
+            'criterio_evaluacion_id' => 1,
             'fecha_apertura' => now(),
             'fecha_cierre' => now()->addDays(10),
             'activo' => true,
-            'observaciones' => 'Tarea de prueba 2',
+            'enunciado' => 'Tarea de prueba 2',
         ]);
     }
 }
