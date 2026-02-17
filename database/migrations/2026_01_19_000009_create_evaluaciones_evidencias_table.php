@@ -15,7 +15,6 @@ class CreateEvaluacionesEvidenciasTable extends Migration
     {
         Schema::create('evaluaciones_evidencias', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('evaluacion_id');
             $table->unsignedBigInteger('evidencia_id');
             $table->string('url');
             $table->text('descripcion');

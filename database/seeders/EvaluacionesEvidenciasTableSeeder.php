@@ -16,6 +16,7 @@ class EvaluacionesEvidenciasTableSeeder extends Seeder
     public function run()
     {
         EvaluacionesEvidencia::create([
+    
             'evidencia_id' => 2,
             'url' => 'https://example.com/evidencia1',
             'descripcion' => 'Evidencia 1 para la evaluación 1',

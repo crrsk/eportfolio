@@ -14,7 +14,6 @@ class EvaluacionesEvidencia extends Model
     use HasFactory;
 
     protected $fillable = [
-        'evaluacion_id',
         'evidencia_id',
         'url',
         'descripcion',

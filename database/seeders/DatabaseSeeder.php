@@ -19,15 +19,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-       /*
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);*/
+
 
         Model::unguard();
         Schema::disableForeignKeyConstraints();
+        User::factory()->create([
+                    'name' => 'Test User',
+                    'email' => 'test@example.com',
+                ]);
 
         $this->call(CriteriosEvaluacionTableSeeder::class);
         $this->call(FamiliasProfesionalesTableSeeder::class);
