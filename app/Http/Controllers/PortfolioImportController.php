@@ -68,7 +68,7 @@ class PortfolioImportController extends Controller
             DB::commit();
 
             return redirect()
-                ->route('portfolio.import.index')
+                ->route('portfolio.import.form')
                 ->with('success', 'Portfolio importado correctamente desde JSON Resume');
 
         } catch (\Exception $e) {
@@ -116,7 +116,7 @@ class PortfolioImportController extends Controller
             DB::commit();
 
             return redirect()
-                ->route('portfolio.import.index')
+                ->route('portfolio.import.form')
                 ->with('success', "Se importaron " . count($data['projects']) . " proyectos desde GitHub");
 
         } catch (\Exception $e) {
