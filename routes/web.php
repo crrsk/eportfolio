@@ -11,6 +11,7 @@ use App\Http\Controllers\ResultadosAprendizajeController;
 use App\Http\Controllers\MatriculasController;
 use App\Http\Controllers\PortfolioImportController;
 use App\Http\Controllers\SkillAnalyticsController;
+use App\Http\Controllers\PortfolioExportController;
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -155,6 +156,18 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/api/analytics/related', [SkillAnalyticsController::class, 'related'])
         ->name('api.analytics.related');
+});
+
+Route::middleware(['auth'])->group(function () {
+    // Exportaciones
+    Route::get('/portfolio/{portfolio}/export/json', [PortfolioExportController::class, 'exportJson'])
+        ->name('portfolio.export.json');
+
+    Route::get('/portfolio/{portfolio}/export/pdf', [PortfolioExportController::class, 'exportPdf'])
+        ->name('portfolio.export.pdf');
+
+    Route::get('/portfolio/{portfolio}/export/pdf/preview', [PortfolioExportController::class, 'previewPdf'])
+        ->name('portfolio.export.pdf.preview');
 });
 
 require __DIR__ . '/auth.php';
