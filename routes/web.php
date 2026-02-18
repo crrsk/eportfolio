@@ -10,6 +10,7 @@ use App\Http\Controllers\FamiliasProfesionalesController;
 use App\Http\Controllers\ResultadosAprendizajeController;
 use App\Http\Controllers\MatriculasController;
 use App\Http\Controllers\PortfolioImportController;
+use App\Http\Controllers\SkillAnalyticsController;
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -141,6 +142,19 @@ Route::middleware(['auth'])->group(function () {
     // Importar desde GitHub
     Route::post('/portfolio/import/github', [PortfolioImportController::class, 'importGitHub'])
         ->name('portfolio.import.github');
+});
+
+Route::middleware(['auth'])->group(function () {
+    // Dashboard de analytics
+    Route::get('/analytics/skills', [SkillAnalyticsController::class, 'index'])
+        ->name('analytics.skills');
+
+    // API endpoints
+    Route::get('/api/analytics/trends', [SkillAnalyticsController::class, 'trends'])
+        ->name('api.analytics.trends');
+
+    Route::get('/api/analytics/related', [SkillAnalyticsController::class, 'related'])
+        ->name('api.analytics.related');
 });
 
 require __DIR__ . '/auth.php';
